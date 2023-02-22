@@ -31,23 +31,27 @@ resource "aws_instance" "ec2" {
     Name = var.instance_tag_name
   }
 
-  user_data = <<EOF
-#!/bin/bash
-echo "-------------------------START SETUP---------------------------"
-sudo yum update -y
-sudo yum install docker -y
-sudo yum install git -y
-git clone https://github.com/baotr0401/ETL-pipeline-aws.git
-sudo usermod -a -G docker ec2-user
-newgrp docker
-sudo systemctl enable docker
-sudo service docker start
-sudo yum install python3-pip
-sudo pip3 install docker-compose
-cd ETL-pipeline-aws
-cd infrastructure
-cd kafka
-docker-compose up
-echo "-------------------------END SETUP---------------------------"
-EOF
+  user_data = var.user_data
 }
+
+
+
+# user_data = <<EOF
+# #!/bin/bash
+# echo "-------------------------START SETUP---------------------------"
+# sudo yum update -y
+# sudo yum install docker -y
+# sudo yum install git -y
+# git clone https://github.com/baotr0401/ETL-pipeline-aws.git
+# sudo usermod -a -G docker ec2-user
+# newgrp docker
+# sudo systemctl enable docker
+# sudo service docker start
+# sudo yum install python3-pip
+# sudo pip3 install docker-compose
+# cd ETL-pipeline-aws
+# cd infrastructure
+# cd kafka
+# docker-compose up
+# echo "-------------------------END SETUP---------------------------"
+# EOF

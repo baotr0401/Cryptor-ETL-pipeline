@@ -59,10 +59,15 @@ module "ec2_kafka_broker_sg"{
 module "ec2_kafka_broker_instance"{
   source = "../modules/EC2/instance"
   ami = var.ec2_ami
+
+  #key pair name
   key_name = "ec2_kafka_broker"
   instance_type = var.ec2_instance_type
+
   instance_sg_name = module.ec2_kafka_broker_sg.sg_name
   instance_tag_name = "kafka"
+  
+  user_data= "${file("../../infrastructure/kafka/ec2-startup.sh")}"
 }
 
 

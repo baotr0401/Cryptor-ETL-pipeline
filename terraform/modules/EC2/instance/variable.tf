@@ -33,3 +33,7 @@ variable "key_name"{
   type = string
 }
 
+variable "user_data"{
+  description = "ec2 bash script executing at deployment"
+  type = any
+}
