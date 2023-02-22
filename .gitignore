@@ -3,3 +3,5 @@
 /infrastructure/kafka/s3_put.py
 *.tfstate
 *.terraform
+*.backup
+*.hcl
