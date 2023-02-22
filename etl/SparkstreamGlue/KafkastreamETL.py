@@ -93,7 +93,7 @@ def stream_data(spark_stream):
         .outputMode("append") \
         .partitionBy("date") \
         .option("path", "s3://{}/bitcoin/".format(S3_OUPUT_env)) \
-        .option("checkpointLocation", "s3://{}/test-2-checkpoint/"/format(S3_CHECKPOINT_env)) \
+        .option("checkpointLocation", "s3://{}/bitcoin-checkpoint/"/format(S3_CHECKPOINT_env)) \
         .start()
     query.awaitTermination(180)
     query.stop()
