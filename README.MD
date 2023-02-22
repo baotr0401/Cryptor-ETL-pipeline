@@ -6,13 +6,13 @@ This is a serverless ETL pipeline to pull cryptocurrency market data [CoinCap AP
 
 ### Objective
 
-The project will pull cryptocurrency transactions recorded on Coinbase and create a data pipeline that consumes the data. The data coming in would be similar to a bitcoin exchange from a trading session, which contains timestamps, volumes, pairs, etc. The data would be loaded and processed in near real-time and stored to the data lake periodically (every 5 minutes).
+The project will pull cryptocurrency transactions recorded on Coinbase and create a data pipeline that consumes the data. The data coming in would be similar to a bitcoin exchange from a trading session, which contains timestamps, volumes, pairs, etc. The data would be loaded and processed in near real-time and stored to the data lake periodically (every 5 minutes). 
 
 ## Architecture
 
 ![Arch](assets/images/arch.png)
 
-Provision an AWS EC2 instance acting as a Kafka broker server. A Lambda function to pull and load our data to the broker as a de-facto producer. Glue jobs then consume, transform and load the data from the Kafka broker to S3 buckets.
+Provision an AWS EC2 instance acting as a Kafka broker server. A Lambda function to pull and load our data to the broker as a de-facto producer. Glue jobs then consume, transform and load the data from the Kafka broker to S3 buckets. One main reason in introducing Kafka is to get familiar with the service.
 
 All of the components are provisioned through Terraform and Docker containers.
 ## Setup
