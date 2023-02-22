@@ -106,7 +106,7 @@ variable "glue_trigger_type" {
 variable "layers_path"{
   description = "File path to layer"
   type        = string
-  default     = "../../infrastructure/kafka/lambdaproducer/packages"
+  default     = "../../infrastructure/kafka/lambda-producer/packages"
 }
 
 variable "layers_list"{
