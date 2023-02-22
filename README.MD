@@ -2,6 +2,12 @@
 
 This is a serverless ETL pipeline to pull cryptocurrency market data [CoinCap API](https://docs.coincap.io/) from a Kafka broker server, apply preliminary transformations, and load it into data lakes
 
+## Description
+
+### Objective
+
+The project will pull cryptocurrency transactions recorded on Coinbase and create a data pipeline that consumes the data. The data coming in would be similar to a bitcoin exchange from a trading session, which contains timestamps, volumes, pairs, etc. The data would be loaded and processed in near real-time and stored to the data lake periodically (every 5 minutes).
+
 ## Architecture
 
 ![Arch](assets/images/arch.png)
