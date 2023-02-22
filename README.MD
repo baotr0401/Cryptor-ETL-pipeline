@@ -40,6 +40,6 @@ After you are done, make sure to destroy your cloud infrastructure.
 
 ```shell
 # In the "/terraform/deployment-pipeline" directory
-terraform destroy
+terraform destroy # type in yes after verifying the changes TF will make
 
 ```
