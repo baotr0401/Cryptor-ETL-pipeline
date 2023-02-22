@@ -48,6 +48,26 @@ resource "aws_s3_object" "glue_job_1" {
   etag = filemd5(var.glue_script_local_source)
 }
 
+
+# EC2 broker server
+module "ec2_kafka_broker_sg"{
+  source = "../modules/EC2/security-group"
+  sg_name = "ec2_kafka_broker"
+  tag_name = "kafka"
+}
+
+module "ec2_kafka_broker_instance"{
+  source = "../modules/EC2/instance"
+  ami = var.ec2_ami
+  key_name = "ec2_kafka_broker"
+  instance_type = var.ec2_instance_type
+  instance_sg_name = module.ec2_kafka_broker_sg.sg_name
+  instance_tag_name = "kafka"
+}
+
+
+
+
 module "IAM_glue_role" {
     source = "../modules/IAM/iam_glue"
     role_name= var.glue_role_name
@@ -68,7 +88,7 @@ module "glue_job_1"{
     arguments = {
         "S3_OUTPUT" = module.S3_bucket_destination.bucket_name
         "S3_CHECKPOINT" = module.S3_bucket_checkpoint.bucket_name
-        "BOOTSTRAP_SERVER" = var.kafka_bootstrap_server
+        "BOOTSTRAP_SERVER" = "${module.ec2_kafka_broker_instance.public_dns_hostname}:9093"
         "TOPIC" = var.kafka_topic
 
     
@@ -110,7 +130,7 @@ module "lambda_layer_kafkapython"{
 module "lambda_producer_function_1"{
     source = "../modules/Lambda/lambda-function"
     
-    deployment_package  = "../../infrastructure/kafka/lambdaproducer/packages/lambda-producer-deployment-package.zip"
+    deployment_package  = "../../infrastructure/kafka/lambda-producer/packages/lambda-producer-deployment-package.zip"
     name    = "producer_terraform_1"
     arn =   module.IAM_lambda_role.role_arn
 
@@ -121,7 +141,7 @@ module "lambda_producer_function_1"{
     producer_handler = var.lambda_producer_1_handler
     
     # Environment variable
-    servers  =   var.kafka_bootstrap_server
+    servers  =   "${module.ec2_kafka_broker_instance.public_dns_hostname}:9093"
     topics   =   var.kafka_topic
     api_urls =  "https://api.coincap.io/v2/exchanges"
 

@@ -1,4 +1,3 @@
-/terraform/modules/EC2
 /infrastructure/kafka/kafka_consumer.py
 /infrastructure/kafka/s3_put.py
 *.tfstate

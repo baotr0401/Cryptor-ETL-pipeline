@@ -15,6 +15,19 @@ variable "kafka_topic" {
   default  = "data-stream-analysis"
 }
 
+# EC2 info
+variable "ec2_ami"{
+  description = "Linux ami"
+  type = string
+  default  = "ami-0f2eac25772cd4e36"
+}
+
+variable "ec2_instance_type"{
+  description = "free-tier instance"
+  type = string
+  default  = "t2.micro"
+}
+
 
 # S3 module
 variable "bucket_list" {
@@ -43,7 +56,7 @@ variable "glue_script_key"{
 variable "glue_script_local_source"{
     description = "script local path"
     type        = string
-    default     = "../../etl/SparkstreamGlue/KafkastreamETL.py"
+    default     = "../../etl/glue-script/KafkastreamETL.py"
 }
 
 # Glue role IAM module
