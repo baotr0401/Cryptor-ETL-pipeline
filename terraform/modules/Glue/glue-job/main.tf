@@ -3,7 +3,7 @@
 # worker type = G.1X
 # worker number = 10
 resource "aws_glue_job" "ETLjob" {
-  name     = "Kafka-consume-layer-${var.name}"
+  name     = "Kafka-consume-${var.name}"
   role_arn = var.glue_iam_role
   number_of_workers = var.worker_numbers
   worker_type = var.worker_types
