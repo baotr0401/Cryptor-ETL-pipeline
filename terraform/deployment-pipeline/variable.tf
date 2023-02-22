@@ -44,7 +44,7 @@ variable "access_control_s3_bucket"{
 variable "access_control_object"{
   description = "object access control"
   type        = string
-  default     = "public-read"
+  default     = "private"
 }
 
 variable "glue_script_key"{
