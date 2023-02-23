@@ -16,9 +16,7 @@ from pyspark.sql.functions import (
   desc,
   row_number,
   to_timestamp,
-  col,
   from_json,
-  to_timestamp,
   to_date
 )
 
@@ -101,6 +99,8 @@ def stream_data(spark_stream):
 if __name__ == '__main__':
     stream_df = get_raw_df(spark, schema, alias)
     stream_data(stream_df)
-    
+
+
+
 job.commit()
     
