@@ -14,7 +14,7 @@ The project will pull cryptocurrency transactions recorded on Coinbase and creat
 
 Provision an AWS EC2 instance acting as a Kafka broker server. A Lambda function to pull and load our data to the broker as a de-facto producer. Glue jobs then consume, transform (convert to parquet and partition by date) and load the data from the Kafka broker to S3 buckets. One main reason in introducing Kafka is to get familiar with the service.
 
-All of the components are provisioned through Terraform and Docker containers.
+All of the components are provisioned and reproducible through Terraform and Docker containers.
 ## Setup
 
 ### Pre-requisites
