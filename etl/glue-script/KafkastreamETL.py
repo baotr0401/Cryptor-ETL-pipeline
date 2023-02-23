@@ -22,13 +22,13 @@ from pyspark.sql.functions import (
   to_date
 )
 
-from pyspark.sql.types import *
-
 args = getResolvedOptions(sys.argv, ['JOB_NAME'])
 S3_OUPUT_env = getResolvedOptions(sys.argv, ['S3_OUTPUT'])
 S3_CHECKPOINT_env = getResolvedOptions(sys.argv, ['S3_CHECKPOINT'])
 KAFKA_BOOTSTRAP_SERVER_env = getResolvedOptions(sys.argv, ['BOOTSTRAP_SERVER'])
 KAFKA_TOPIC_env = getResolvedOptions(sys.argv, ['TOPIC'])
+
+
 
 sc = SparkContext.getOrCreate()
 glueContext = GlueContext(sc)
@@ -49,8 +49,6 @@ schema = StructType([StructField("exchangeId", StringType(), True),
                           StructField("update_dt", StringType(), True)])
 
 alias = "clean_coin_data"
-# XXX: starting_offsets_of_kafka_topic: ['latest', 'earliest']
-# STARTING_OFFSETS_OF_KAFKA_TOPIC = args.get('starting_offsets_of_kafka_topic', 'latest')
 
 
     
@@ -58,15 +56,11 @@ def get_raw_df(sparks, schema, alias):
     """
             :param spark: spark session for the streaming app
             :param alias_value: The alias value for the clean data frame
-            :return: raw spark dataframe from the kafka consumer
+            :return: spark dataframe from the kafka consumer
     """
     """
          Creating a consumer for the kafka prodcuer running inside a docker container 
          exposed at localhost:9093.
-         Setting spark.streaming.receiver.maxRate
-         as could not use default timestamp value available in streams
-         as it was difficult to aggregate them.
-         Setting scheduler mode as 'FAIR' to run multiple aggregations in a fair mechanism
     """
     return sparks \
         .readStream \
@@ -82,11 +76,14 @@ def get_raw_df(sparks, schema, alias):
         .withColumn('timestamp', to_timestamp('update_dt')) \
         .withColumn('date', to_date('timestamp')) \
         .alias(alias)
-        
 
 
 
 def stream_data(spark_stream):
+    """
+            :param spark_stream: spark dataframe from the kafka consumer for the streaming app
+            :return: spark streaming query object
+    """
     query = spark_stream \
         .writeStream \
         .format("parquet") \
@@ -98,6 +95,8 @@ def stream_data(spark_stream):
     query.awaitTermination(180)
     query.stop()
     return query
+
+
 
 if __name__ == '__main__':
     stream_df = get_raw_df(spark, schema, alias)
