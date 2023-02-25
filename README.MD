@@ -12,7 +12,7 @@ The project will pull cryptocurrency transactions recorded on Coinbase and creat
 
 ![Arch](assets/images/arch.png)
 
-Provision an AWS EC2 instance acting as a Kafka broker server. A Lambda function to pull and load our data to the broker as a de-facto producer. Scheduled Glue jobs then consume, transform (convert to parquet and partition by date) and load the data from the Kafka broker to S3 buckets. One main reason in introducing Kafka is to get familiar with the service.
+Provision an AWS EC2 instance acting as a self-managed Kafka broker server. A Lambda function to pull and load our data to the broker as a de-facto producer. Scheduled Glue jobs then consume, transform (convert to parquet and partition by date) and load the Kafka data stream to S3 buckets. One main reason in introducing Kafka is to get familiar with the service.
 
 All of the components are provisioned and reproducible through Terraform and Docker containers.
 ## Setup
@@ -53,9 +53,10 @@ terraform destroy # type in yes after verifying the changes TF will make
 ## Conclusion
 
 ### Things could be made better
-- Add transformation layers to to process the data in S3 
-- Implement storing data in traditional data warehouses (Redshift, Postgres,..)
+- Add transformation layers to process and curate the data in S3 
+- Implement security layers
 - Add reporting dashboards and visualizations
 - Write data quality tests
 - Create dimensional models for additional business processes
 - Include CI/CD
+- Implement storing data in traditional data warehouses (Redshift, Postgres,..)
