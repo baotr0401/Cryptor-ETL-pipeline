@@ -19,7 +19,13 @@ services:
       KAFKA_HEAP_OPTS: "-Xmx512M -Xms256M"
     extra_hosts:
         - "localhost: 127.0.0.1"
-
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - "0.0.0.0:3000:3000"
+    volumes:
+      - data:/metabase
+      
   # spark-master:
   #   image: bde2020/spark-master:2.4.4-hadoop2.7
   #   container_name: spark-master
