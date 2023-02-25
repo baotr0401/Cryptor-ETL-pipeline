@@ -50,13 +50,14 @@ terraform destroy # type in yes after verifying the changes TF will make
 
 ```
 
-## Conclusion
 
 ### Visualization
 
 [![Arch](assets/images/binance_dashboard_1.png)](http://139.99.91.150:3000/public/dashboard/77f133d7-2944-4dbe-9108-0375cbb2fd9d?fbclid=IwAR1wI-v3J8T1jKXqyk_M2f4R09yVZHa5KmZqvuzv3Fes2r2LQSVo_bJp5Rc)
 
 Reporting dashboards and visualizations are hosted through Metabase
+
+## Conclusion
 
 ### Things could be made better
 - Add transformation layers to process and curate the data in S3 
