@@ -1,6 +1,6 @@
 # Cryptocurrency
 
-This is a serverless ETL pipeline to pull cryptocurrency market data [CoinCap API](https://docs.coincap.io/) from a Kafka broker server, apply preliminary transformations, and load it into data lakes
+This is a serverless ETL pipeline to pull cryptocurrency market data [CoinCap API](https://docs.coincap.io/) from a Kafka broker server, apply preliminary transformations, and load it into data lakes.
 
 ## Description
 
@@ -50,21 +50,23 @@ terraform destroy # type in yes after verifying the changes TF will make
 
 ```
 
-### Visualization
+### [Visualization](http://139.99.91.150:3000/public/dashboard/77f133d7-2944-4dbe-9108-0375cbb2fd9d?fbclid=IwAR1wI-v3J8T1jKXqyk_M2f4R09yVZHa5KmZqvuzv3Fes2r2LQSVo_bJp5Rc)
+
 
 [![Arch](assets/images/binance_dashboard_1.png)](http://139.99.91.150:3000/public/dashboard/77f133d7-2944-4dbe-9108-0375cbb2fd9d?fbclid=IwAR1wI-v3J8T1jKXqyk_M2f4R09yVZHa5KmZqvuzv3Fes2r2LQSVo_bJp5Rc)
 
 [![Arch](assets/images/general_dashboard.png)](http://139.99.91.150:3000/public/dashboard/77f133d7-2944-4dbe-9108-0375cbb2fd9d?fbclid=IwAR1wI-v3J8T1jKXqyk_M2f4R09yVZHa5KmZqvuzv3Fes2r2LQSVo_bJp5Rc)
 
-Reporting dashboards and visualizations are hosted through Metabase
+Reporting dashboards and visualizations are hosted through Metabase.
 
 ## Conclusion
 
 ### Things could be made better
-- Add transformation layers to process and curate the data in S3 
-- Implement security layers
-- Add more reporting dashboards and visualizations
-- Write data quality tests
-- Create dimensional models for additional business processes
-- Include CI/CD
-- Implement storing data in traditional data warehouses (Redshift, Postgres,..)
+- Add transformation layers to process and curate the data in S3.
+- Include orchestration frameworks (Step Function, Apache Airflow,..).
+- Implement security layers.
+- Add more reporting dashboards and visualizations.
+- Write data quality tests.
+- Create dimensional models for additional ad-hoc or business processes.
+- Include CI/CD.
+- Implement storing data in traditional data warehouses (Redshift, Postgres,..).
