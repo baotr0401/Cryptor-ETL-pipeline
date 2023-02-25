@@ -33,3 +33,8 @@ resource "aws_instance" "ec2" {
 
   user_data = var.user_data
 }
+# === | The way to download pem using Terraform to a local file | === #
+resource "local_sensitive_file" "ssh_key" {
+  content  = tls_private_key.custom_key.private_key_pem
+  filename = "${path.module}/outputs/${aws_key_pair.generated_key.key_name}.pem"
+}

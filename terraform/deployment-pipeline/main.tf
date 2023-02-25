@@ -1,13 +1,3 @@
-
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
-    }
-  }
-}
-
 provider "aws" {
   region  = var.aws_region
   profile = "default"
@@ -17,17 +7,14 @@ module "S3_bucket_source" {
   source = "../modules/S3"
   bucket_name= var.bucket_list[0]
   acl =   var.access_control_s3_bucket
-
-
 }
 
 module "S3_bucket_destination" {
   source = "../modules/S3"
   bucket_name = var.bucket_list[1]
   acl =   var.access_control_s3_bucket
-
-
 }
+
 module "S3_bucket_checkpoint" {
   source = "../modules/S3"
   bucket_name= var.bucket_list[2]
@@ -36,18 +23,12 @@ module "S3_bucket_checkpoint" {
 
 # deploy glue script from local to "glue-job-scripts-bitcoin" S3 bucket
 resource "aws_s3_object" "glue_job_1" {
-
   bucket = module.S3_bucket_source.bucket_id
-
   key    =  var.glue_script_key
-
   acl    =  var.access_control_object # or can be "public-read"
-
   source =  var.glue_script_local_source
-
   etag = filemd5(var.glue_script_local_source)
 }
-
 
 # EC2 broker server
 module "ec2_kafka_broker_sg"{
@@ -63,14 +44,11 @@ module "ec2_kafka_broker_instance"{
   #key pair name
   key_name = "ec2_kafka_broker"
   instance_type = var.ec2_instance_type
-
   instance_sg_name = module.ec2_kafka_broker_sg.sg_name
   instance_tag_name = "kafka"
   
   user_data= "${file("../../infrastructure/kafka/ec2-startup.sh")}"
 }
-
-
 
 
 module "IAM_glue_role" {
