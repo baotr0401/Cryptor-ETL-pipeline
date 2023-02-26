@@ -56,7 +56,7 @@ variable "glue_script_key"{
 variable "glue_script_local_source"{
     description = "script local path"
     type        = string
-    default     = "../../etl/glue-script/KafkastreamETL.py"
+    default     = "../../etl/glue-script/layer-1/KafkastreamETL.py"
 }
 
 # Glue role IAM module
